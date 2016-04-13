@@ -3,4 +3,4 @@
 ## 0.0.1
 
 - Initial version, created by Stagehand
-- Added randomString, randomNumeric, randomAlphaNumeric, and randomBetween
+- Added randomBetween, randomString, randomNumeric, randomAlpha, randomAlphaNumeric, and randomMerge.
