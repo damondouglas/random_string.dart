@@ -71,7 +71,7 @@ String randomAlphaNumeric(int length) {
 
 /// Merge [a] with [b] and scramble characters.
 String randomMerge(String a, String b) {
-  var mergedCodeUnits = new List.from("$a$b".codeUnits);
+  List<int> mergedCodeUnits = new List.from("$a$b".codeUnits);
   mergedCodeUnits.shuffle();
   return new String.fromCharCodes(mergedCodeUnits);
 }
