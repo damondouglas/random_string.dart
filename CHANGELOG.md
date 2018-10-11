@@ -4,3 +4,10 @@
 
 - Initial version, created by Stagehand
 - Added randomBetween, randomString, randomNumeric, randomAlpha, randomAlphaNumeric, and randomMerge.
+
+# Changelog
+
+## 0.0.2
+
+- Added Support for Dart 2
+- Fixed Error: The argument type 'dart.core::List<dynamic>'
