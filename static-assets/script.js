@@ -1,29 +1,3 @@
-// Adds a shadow for the top nav when the masthead is scrolled off the top.
-function initScroller() {
-  var header = document.querySelector("header");
-  var title = document.querySelector(".title-description");
-  var selfName = document.querySelector('nav .self-name');
-
-  window.addEventListener('scroll', function(e) {
-    var position = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (header) {
-      if (position >= 122) {
-        header.classList.add("header-fixed");
-      } else if (header.classList.contains("header-fixed")) {
-        header.classList.remove("header-fixed");
-      }
-    }
-
-    if (selfName) {
-      if (position >= 122) {
-        selfName.classList.add('visible-xs-inline');
-      } else {
-        selfName.classList.remove('visible-xs-inline');
-      }
-    }
-  });
-}
 
 function initSideNav() {
   var leftNavToggle = document.getElementById('sidenav-left-toggle');
@@ -53,12 +27,66 @@ function initSideNav() {
   }
 }
 
-// Make sure the anchors scroll past the fixed page header (#648).
-function shiftWindow() {
-  scrollBy(0, -68);
+function saveLeftScroll() {
+  var leftSidebar = document.getElementById('dartdoc-sidebar-left');
+  sessionStorage.setItem('dartdoc-sidebar-left-scrollt' + window.location.pathname, leftSidebar.scrollTop);
+  sessionStorage.setItem('dartdoc-sidebar-left-scrolll' + window.location.pathname, leftSidebar.scrollLeft);
 }
 
-function initSearch() {
+function saveMainContentScroll() {
+  var mainContent = document.getElementById('dartdoc-main-content');
+  sessionStorage.setItem('dartdoc-main-content-scrollt' + window.location.pathname, mainContent.scrollTop);
+  sessionStorage.setItem('dartdoc-main-content-scrolll' + window.location.pathname, mainContent.scrollLeft);
+}
+
+function saveRightScroll() {
+  var rightSidebar = document.getElementById('dartdoc-sidebar-right');
+  sessionStorage.setItem('dartdoc-sidebar-right-scrollt' + window.location.pathname, rightSidebar.scrollTop);
+  sessionStorage.setItem('dartdoc-sidebar-right-scrolll' + window.location.pathname, rightSidebar.scrollLeft);
+}
+
+function restoreScrolls() {
+  var leftSidebar = document.getElementById('dartdoc-sidebar-left');
+  var mainContent = document.getElementById('dartdoc-main-content');
+  var rightSidebar = document.getElementById('dartdoc-sidebar-right');
+
+  try {
+    var leftSidebarX = sessionStorage.getItem('dartdoc-sidebar-left-scrolll' + window.location.pathname);
+    var leftSidebarY = sessionStorage.getItem('dartdoc-sidebar-left-scrollt' + window.location.pathname);
+
+    var mainContentX = sessionStorage.getItem('dartdoc-main-content-scrolll' + window.location.pathname);
+    var mainContentY = sessionStorage.getItem('dartdoc-main-content-scrollt' + window.location.pathname);
+
+    var rightSidebarX = sessionStorage.getItem('dartdoc-sidebar-right-scrolll' + window.location.pathname);
+    var rightSidebarY = sessionStorage.getItem('dartdoc-sidebar-right-scrollt' + window.location.pathname);
+
+    leftSidebar.scrollTo(leftSidebarX, leftSidebarY);
+    mainContent.scrollTo(mainContentX, mainContentY);
+    rightSidebar.scrollTo(rightSidebarX, rightSidebarY);
+  } finally {
+    // Set visibility to visible after scroll to prevent the brief appearance of the
+    // panel in the wrong position.
+    leftSidebar.style.visibility = 'visible';
+    mainContent.style.visibility = 'visible';
+    rightSidebar.style.visibility = 'visible';
+  }
+}
+
+function initScrollSave() {
+  var leftSidebar = document.getElementById('dartdoc-sidebar-left');
+  var mainContent = document.getElementById('dartdoc-main-content');
+  var rightSidebar = document.getElementById('dartdoc-sidebar-right');
+
+  // For portablility, use two different ways of attaching saveLeftScroll to events.
+  leftSidebar.onscroll = saveLeftScroll;
+  leftSidebar.addEventListener("scroll", saveLeftScroll, true);
+  mainContent.onscroll = saveMainContentScroll;
+  mainContent.addEventListener("scroll", saveMainContentScroll, true);
+  rightSidebar.onscroll = saveRightScroll;
+  rightSidebar.addEventListener("scroll", saveRightScroll, true);
+}
+
+function initSearch(name) {
   var searchIndex;  // the JSON data
 
   var weights = {
@@ -72,10 +100,11 @@ function initSearch() {
     'constructor' : 4
   };
 
-  function findMatches(q, cb) {
+  function findMatches(q) {
     var allMatches = []; // list of matches
 
     function score(element, num) {
+      num -= element.overriddenDepth * 10;
       var weightFactor = weights[element.type] || 4;
       return {e: element, score: (num / weightFactor) >> 0};
     }
@@ -137,20 +166,29 @@ function initSearch() {
       sortedMatches.push(allMatches[i].e);
     }
 
-    cb(sortedMatches);
+    return sortedMatches;
   };
 
   function initTypeahead() {
-    $('#search-box').prop('disabled', false);
-    $('#search-box').prop('placeholder', 'Search');
+    var search = new URI().query(true)["search"];
+    if (search) {
+      var matches = findMatches(search);
+      if (matches.length != 0) {
+        window.location = matches[0].href;
+        return;
+      }
+    }
+
+    $('#' + name).prop('disabled', false);
+    $('#' + name).prop('placeholder', 'Search API Docs');
     $(document).keypress(function(event) {
       if (event.which == 47 /* / */) {
         event.preventDefault();
-        $('#search-box').focus();
+        $('#' + name).focus();
       }
     });
 
-    $('#search-box.typeahead').typeahead({
+    $('#' + name + '.typeahead').typeahead({
       hint: true,
       highlight: true,
       minLength: 1
@@ -158,12 +196,12 @@ function initSearch() {
     {
       name: 'elements',
       limit: 10,
-      source: findMatches,
+      source: function(q, cb) { cb(findMatches(q)); },
       display: function(element) { return element.name; },
       templates: {
         suggestion: function(match) {
           return [
-            '<div>',
+            '<div data-href="' + match.href + '">',
               match.name,
               ' ',
               match.type.toLowerCase(),
@@ -177,7 +215,26 @@ function initSearch() {
       }
     });
 
-    $('#search-box.typeahead').bind('typeahead:select', function(ev, suggestion) {
+    var typeaheadElement = $('#' + name + '.typeahead');
+    var typeaheadElementParent = typeaheadElement.parent();
+    var selectedSuggestion;
+
+    typeaheadElement.on("keydown", function (e) {
+      if (e.keyCode === 13) { // Enter
+        if (selectedSuggestion == null) {
+          var suggestion = typeaheadElementParent.find(".tt-suggestion.tt-selectable:eq(0)");
+          if (suggestion.length > 0) {
+            var href = suggestion.data("href");
+            if (href != null) {
+              window.location = href;
+            }
+          }
+        }
+      }
+    });
+
+    typeaheadElement.bind('typeahead:select', function(ev, suggestion) {
+        selectedSuggestion = suggestion;
         window.location = suggestion.href;
     });
   }
@@ -189,18 +246,18 @@ function initSearch() {
     initTypeahead();
   });
   jsonReq.addEventListener('error', function() {
-    $('#search-box').prop('placeholder', 'Error loading search index');
+    $('#' + name).prop('placeholder', 'Error loading search index');
   });
   jsonReq.send();
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  prettyPrint();
-  initScroller();
+  // Place this first so that unexpected exceptions in other JavaScript do not block page visibility.
+  restoreScrolls();
+  hljs.initHighlightingOnLoad();
   initSideNav();
-  initSearch();
-
-  // Make sure the anchors scroll past the fixed page header (#648).
-  if (location.hash) shiftWindow();
-  window.addEventListener("hashchange", shiftWindow);
+  initScrollSave();
+  initSearch("search-box");
+  initSearch("search-body");
+  initSearch("search-sidebar");
 });
