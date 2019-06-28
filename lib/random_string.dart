@@ -3,9 +3,6 @@
 
 /// Simple library for generating random ascii strings.
 ///
-/// More dartdocs go here.
-///
-///
 /// A simple usage example:
 ///
 /// import 'package:random_string/random_string.dart' as random;
@@ -69,7 +66,7 @@ String randomAlphaNumeric(int length) {
   return randomMerge(alpha, numeric);
 }
 
-/// Merge [a] with [b] and scramble characters.
+/// Merge [a] with [b] and shuffle.
 String randomMerge(String a, String b) {
   List<int> mergedCodeUnits = new List.from("$a$b".codeUnits);
   mergedCodeUnits.shuffle();
