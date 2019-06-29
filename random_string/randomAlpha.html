@@ -51,6 +51,10 @@
     
     <h5>random_string library</h5>
     <ol>
+      <li class="section-title"><a href="random_string/random_string-library.html#classes">Classes</a></li>
+      <li><a href="random_string/CoreProvider-class.html">CoreProvider</a></li>
+      <li><a href="random_string/DefaultProvider-class.html">DefaultProvider</a></li>
+      <li><a href="random_string/Provider-class.html">Provider</a></li>
     
     
       <li class="section-title"><a href="random_string/random_string-library.html#constants">Constants</a></li>
@@ -83,7 +87,7 @@
     <section class="multi-line-signature">
         <span class="returntype">String</span>
                 <span class="name ">randomAlpha</span>
-(<wbr><span class="parameter" id="randomAlpha-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span></span>)
+(<wbr><span class="parameter" id="randomAlpha-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomAlpha-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
     </section>
     <section class="desc markdown">
       <p>Generates a random string of <code>length</code> with only alpha characters.</p>
@@ -91,13 +95,13 @@
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">String randomAlpha(int length) {
-  var lowerAlphaLength = randomBetween(0, length);
+      <pre class="language-dart"><code class="language-dart">String randomAlpha(int length, {Provider provider = const DefaultProvider()}) {
+  var lowerAlphaLength = randomBetween(0, length, provider: provider);
   var upperAlphaLength = length - lowerAlphaLength;
   var lowerAlpha = randomString(lowerAlphaLength,
-      from: LOWER_ALPHA_START, to: LOWER_ALPHA_END);
+      from: LOWER_ALPHA_START, to: LOWER_ALPHA_END, provider: provider);
   var upperAlpha = randomString(upperAlphaLength,
-      from: UPPER_ALPHA_START, to: UPPER_ALPHA_END);
+      from: UPPER_ALPHA_START, to: UPPER_ALPHA_END, provider: provider);
   return randomMerge(lowerAlpha, upperAlpha);
 }</code></pre>
     </section>
@@ -111,7 +115,7 @@
 
 <footer>
   <span class="no-break">
-    random_string 1.0.0
+    random_string 1.1.0
   </span>
 
   

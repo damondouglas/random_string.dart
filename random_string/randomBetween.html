@@ -51,6 +51,10 @@
     
     <h5>random_string library</h5>
     <ol>
+      <li class="section-title"><a href="random_string/random_string-library.html#classes">Classes</a></li>
+      <li><a href="random_string/CoreProvider-class.html">CoreProvider</a></li>
+      <li><a href="random_string/DefaultProvider-class.html">DefaultProvider</a></li>
+      <li><a href="random_string/Provider-class.html">Provider</a></li>
     
     
       <li class="section-title"><a href="random_string/random_string-library.html#constants">Constants</a></li>
@@ -83,7 +87,7 @@
     <section class="multi-line-signature">
         <span class="returntype">int</span>
                 <span class="name ">randomBetween</span>
-(<wbr><span class="parameter" id="randomBetween-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>, </span> <span class="parameter" id="randomBetween-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span></span>)
+(<wbr><span class="parameter" id="randomBetween-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>, </span> <span class="parameter" id="randomBetween-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span>, {</span> <span class="parameter" id="randomBetween-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
     </section>
     <section class="desc markdown">
       <p>Generates a random integer where <code>from</code> &lt;= <code>to</code>.</p>
@@ -91,10 +95,12 @@
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">int randomBetween(int from, int to) {
+      <pre class="language-dart"><code class="language-dart">int randomBetween(int from, int to, {Provider provider = const DefaultProvider()}) {
   if (from &gt; to) throw new Exception(&#39;$from cannot be &gt; $to&#39;);
-  var rand = new Random();
-  return ((to - from) * rand.nextDouble()).toInt() + from;
+  double randomDouble = provider.nextDouble();
+  if (randomDouble &lt; 0) randomDouble *= -1;
+  if (randomDouble &gt; 1) randomDouble = 1&#47;randomDouble;
+  return ((to - from) * provider.nextDouble()).toInt() + from;
 }</code></pre>
     </section>
 
@@ -107,7 +113,7 @@
 
 <footer>
   <span class="no-break">
-    random_string 1.0.0
+    random_string 1.1.0
   </span>
 
   

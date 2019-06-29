@@ -51,6 +51,10 @@
     
     <h5>random_string library</h5>
     <ol>
+      <li class="section-title"><a href="random_string/random_string-library.html#classes">Classes</a></li>
+      <li><a href="random_string/CoreProvider-class.html">CoreProvider</a></li>
+      <li><a href="random_string/DefaultProvider-class.html">DefaultProvider</a></li>
+      <li><a href="random_string/Provider-class.html">Provider</a></li>
     
     
       <li class="section-title"><a href="random_string/random_string-library.html#constants">Constants</a></li>
@@ -83,7 +87,7 @@
     <section class="multi-line-signature">
         <span class="returntype">String</span>
                 <span class="name ">randomNumeric</span>
-(<wbr><span class="parameter" id="randomNumeric-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span></span>)
+(<wbr><span class="parameter" id="randomNumeric-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomNumeric-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
     </section>
     <section class="desc markdown">
       <p>Generates a random string of <code>length</code> with only numeric characters.</p>
@@ -91,8 +95,8 @@
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">String randomNumeric(int length) =&gt;
-    randomString(length, from: NUMERIC_START, to: NUMERIC_END);</code></pre>
+      <pre class="language-dart"><code class="language-dart">String randomNumeric(int length, {Provider provider = const DefaultProvider()}) =&gt;
+    randomString(length, from: NUMERIC_START, to: NUMERIC_END, provider: provider);</code></pre>
     </section>
 
   </div> <!-- /.main-content -->
@@ -104,7 +108,7 @@
 
 <footer>
   <span class="no-break">
-    random_string 1.0.0
+    random_string 1.1.0
   </span>
 
   

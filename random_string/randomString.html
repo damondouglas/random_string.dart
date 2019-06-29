@@ -51,6 +51,10 @@
     
     <h5>random_string library</h5>
     <ol>
+      <li class="section-title"><a href="random_string/random_string-library.html#classes">Classes</a></li>
+      <li><a href="random_string/CoreProvider-class.html">CoreProvider</a></li>
+      <li><a href="random_string/DefaultProvider-class.html">DefaultProvider</a></li>
+      <li><a href="random_string/Provider-class.html">Provider</a></li>
     
     
       <li class="section-title"><a href="random_string/random_string-library.html#constants">Constants</a></li>
@@ -83,7 +87,7 @@
     <section class="multi-line-signature">
         <span class="returntype">String</span>
                 <span class="name ">randomString</span>
-(<wbr><span class="parameter" id="randomString-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomString-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>: <span class="default-value">ASCII_START</span>, </span> <span class="parameter" id="randomString-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span>: <span class="default-value">ASCII_END</span></span> })
+(<wbr><span class="parameter" id="randomString-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomString-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>: <span class="default-value">ASCII_START</span>, </span> <span class="parameter" id="randomString-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span>: <span class="default-value">ASCII_END</span>, </span> <span class="parameter" id="randomString-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
     </section>
     <section class="desc markdown">
       <p>Generates a random string of <code>length</code> with characters
@@ -93,9 +97,9 @@ Defaults to characters of ascii '!' to '~'.</p>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">String randomString(int length, {int from: ASCII_START, int to: ASCII_END}) {
+      <pre class="language-dart"><code class="language-dart">String randomString(int length, {int from = ASCII_START, int to = ASCII_END, Provider provider = const DefaultProvider()}) {
   return new String.fromCharCodes(
-      new List.generate(length, (index) =&gt; randomBetween(from, to)));
+      new List.generate(length, (index) =&gt; randomBetween(from, to, provider: provider)));
 }</code></pre>
     </section>
 
@@ -108,7 +112,7 @@ Defaults to characters of ascii '!' to '~'.</p>
 
 <footer>
   <span class="no-break">
-    random_string 1.0.0
+    random_string 1.1.0
   </span>
 
   

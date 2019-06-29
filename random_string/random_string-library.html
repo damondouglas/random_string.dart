@@ -70,6 +70,30 @@ main() {
 }</p>
     </section>
     
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+        <dt id="CoreProvider">
+          <span class="name "><a href="random_string/CoreProvider-class.html">CoreProvider</a></span>         
+        </dt>
+        <dd>
+          
+        </dd>
+        <dt id="DefaultProvider">
+          <span class="name "><a href="random_string/DefaultProvider-class.html">DefaultProvider</a></span>         
+        </dt>
+        <dd>
+          
+        </dd>
+        <dt id="Provider">
+          <span class="name "><a href="random_string/Provider-class.html">Provider</a></span>         
+        </dt>
+        <dd>
+          
+        </dd>
+      </dl>
+    </section>
 
 
     <section class="summary offset-anchor" id="constants">
@@ -173,7 +197,7 @@ main() {
 
       <dl class="callables">
         <dt id="randomAlpha" class="callable">
-          <span class="name"><a href="random_string/randomAlpha.html">randomAlpha</a></span><span class="signature">(<wbr><span class="parameter" id="randomAlpha-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span></span>)
+          <span class="name"><a href="random_string/randomAlpha.html">randomAlpha</a></span><span class="signature">(<wbr><span class="parameter" id="randomAlpha-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomAlpha-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
             <span class="returntype parameter">&#8594; String</span>
           </span>
                   </dt>
@@ -182,7 +206,7 @@ main() {
                   
 </dd>
         <dt id="randomAlphaNumeric" class="callable">
-          <span class="name"><a href="random_string/randomAlphaNumeric.html">randomAlphaNumeric</a></span><span class="signature">(<wbr><span class="parameter" id="randomAlphaNumeric-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span></span>)
+          <span class="name"><a href="random_string/randomAlphaNumeric.html">randomAlphaNumeric</a></span><span class="signature">(<wbr><span class="parameter" id="randomAlphaNumeric-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomAlphaNumeric-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
             <span class="returntype parameter">&#8594; String</span>
           </span>
                   </dt>
@@ -191,7 +215,7 @@ main() {
                   
 </dd>
         <dt id="randomBetween" class="callable">
-          <span class="name"><a href="random_string/randomBetween.html">randomBetween</a></span><span class="signature">(<wbr><span class="parameter" id="randomBetween-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>, </span> <span class="parameter" id="randomBetween-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span></span>)
+          <span class="name"><a href="random_string/randomBetween.html">randomBetween</a></span><span class="signature">(<wbr><span class="parameter" id="randomBetween-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>, </span> <span class="parameter" id="randomBetween-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span>, {</span> <span class="parameter" id="randomBetween-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
             <span class="returntype parameter">&#8594; int</span>
           </span>
                   </dt>
@@ -209,7 +233,7 @@ main() {
                   
 </dd>
         <dt id="randomNumeric" class="callable">
-          <span class="name"><a href="random_string/randomNumeric.html">randomNumeric</a></span><span class="signature">(<wbr><span class="parameter" id="randomNumeric-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span></span>)
+          <span class="name"><a href="random_string/randomNumeric.html">randomNumeric</a></span><span class="signature">(<wbr><span class="parameter" id="randomNumeric-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomNumeric-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
             <span class="returntype parameter">&#8594; String</span>
           </span>
                   </dt>
@@ -218,7 +242,7 @@ main() {
                   
 </dd>
         <dt id="randomString" class="callable">
-          <span class="name"><a href="random_string/randomString.html">randomString</a></span><span class="signature">(<wbr><span class="parameter" id="randomString-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomString-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>: <span class="default-value">ASCII_START</span>, </span> <span class="parameter" id="randomString-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span>: <span class="default-value">ASCII_END</span></span> })
+          <span class="name"><a href="random_string/randomString.html">randomString</a></span><span class="signature">(<wbr><span class="parameter" id="randomString-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, {</span> <span class="parameter" id="randomString-param-from"><span class="type-annotation">int</span> <span class="parameter-name">from</span>: <span class="default-value">ASCII_START</span>, </span> <span class="parameter" id="randomString-param-to"><span class="type-annotation">int</span> <span class="parameter-name">to</span>: <span class="default-value">ASCII_END</span>, </span> <span class="parameter" id="randomString-param-provider"><span class="type-annotation"><a href="random_string/Provider-class.html">Provider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultProvider()</span></span> })
             <span class="returntype parameter">&#8594; String</span>
           </span>
                   </dt>
@@ -239,6 +263,10 @@ Defaults to characters of ascii '!' to '~'.
   <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
     <h5>random_string library</h5>
     <ol>
+      <li class="section-title"><a href="random_string/random_string-library.html#classes">Classes</a></li>
+      <li><a href="random_string/CoreProvider-class.html">CoreProvider</a></li>
+      <li><a href="random_string/DefaultProvider-class.html">DefaultProvider</a></li>
+      <li><a href="random_string/Provider-class.html">Provider</a></li>
     
     
       <li class="section-title"><a href="random_string/random_string-library.html#constants">Constants</a></li>
@@ -269,7 +297,7 @@ Defaults to characters of ascii '!' to '~'.
 
 <footer>
   <span class="no-break">
-    random_string 1.0.0
+    random_string 1.1.0
   </span>
 
   
