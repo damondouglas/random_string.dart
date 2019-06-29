@@ -46,4 +46,13 @@ main() {
           true);
     });
   });
+
+  group("Provider", () {
+    test("custom with seed yields an expected result", (){
+      var r = math.Random(1);
+      int value = randomBetween(1, 10, provider: CoreProvider.from(r));
+      expect(value, 3);
+    });
+  });
 }
+

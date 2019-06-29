@@ -1,6 +1,6 @@
 name: random_string
-description: Simple library for generating random ascii strings.
-version: 1.0.0
+description: Simple library for generating random ascii strings by default using Random from 'dart:math'.
+version: 1.1.0
 author: Damon Douglas <douglas.damon@gmail.com>
 homepage: https://github.com/damondouglas/random_string.dart
 
