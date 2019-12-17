@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0
+- Renamed `Provider` to `AbstractRandomProvider`
+- Renamed `CoreProvider` to `CoreRandomProvider`
+- Renamed `DefaultProvider` to `DefaultRandomProvider`
+
 ## 1.1.0
 
 - Enabled a custom provider with Random from 'dart:math' serving as default.
