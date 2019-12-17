@@ -17,11 +17,11 @@ main() {
   print(randomAlphaNumeric(10)); // random sequence of 10 alpha numeric i.e. aRztC1y32B
 
   var r = Random.secure();
-  print(randomBetween(10, 20, provider: CoreProvider.from(r))); // You can use a provider from Random.
+  print(randomBetween(10, 20, provider: CoreRandomProvider.from(r))); // You can use a provider from Random.
   print(randomBetween(10, 20, provider: _Provider())); // Or you can implement your own.
 }
 
-class _Provider with Provider {
+class _Provider with AbstractRandomProvider {
   _Provider();
   double nextDouble() => 0.5;
 }
