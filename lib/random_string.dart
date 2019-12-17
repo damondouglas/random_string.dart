@@ -1,6 +1,3 @@
-// Copyright (c) 2016, Damon Douglas. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 /// Simple library for generating random ascii strings.
 
 library random_string;
@@ -18,44 +15,54 @@ const UPPER_ALPHA_END = 90;
 
 final _internal = Random();
 
-abstract class Provider {
+abstract class AbstractRandomProvider {
   double nextDouble();
 }
 
-class DefaultProvider with Provider {
-  const DefaultProvider();
+class DefaultRandomProvider with AbstractRandomProvider {
+  const DefaultRandomProvider();
+
   double nextDouble() => _internal.nextDouble();
 }
 
-class CoreProvider with Provider {
+class CoreRandomProvider with AbstractRandomProvider {
   Random random;
-  CoreProvider.from(this.random);
+
+  CoreRandomProvider.from(this.random);
+
   double nextDouble() => random.nextDouble();
 }
 
 /// Generates a random integer where [from] <= [to].
-int randomBetween(int from, int to, {Provider provider = const DefaultProvider()}) {
-  if (from > to) throw new Exception('$from cannot be > $to');
+int randomBetween(int from, int to,
+    {AbstractRandomProvider provider = const DefaultRandomProvider()}) {
+  if (from > to) throw Exception('$from cannot be > $to');
   double randomDouble = provider.nextDouble();
   if (randomDouble < 0) randomDouble *= -1;
-  if (randomDouble > 1) randomDouble = 1/randomDouble;
+  if (randomDouble > 1) randomDouble = 1 / randomDouble;
   return ((to - from) * provider.nextDouble()).toInt() + from;
 }
 
 /// Generates a random string of [length] with characters
 /// between ascii [from] to [to].
 /// Defaults to characters of ascii '!' to '~'.
-String randomString(int length, {int from = ASCII_START, int to = ASCII_END, Provider provider = const DefaultProvider()}) {
-  return new String.fromCharCodes(
-      new List.generate(length, (index) => randomBetween(from, to, provider: provider)));
+String randomString(int length,
+    {int from = ASCII_START,
+    int to = ASCII_END,
+    AbstractRandomProvider provider = const DefaultRandomProvider()}) {
+  return String.fromCharCodes(List.generate(
+      length, (index) => randomBetween(from, to, provider: provider)));
 }
 
 /// Generates a random string of [length] with only numeric characters.
-String randomNumeric(int length, {Provider provider = const DefaultProvider()}) =>
-    randomString(length, from: NUMERIC_START, to: NUMERIC_END, provider: provider);
+String randomNumeric(int length,
+        {AbstractRandomProvider provider = const DefaultRandomProvider()}) =>
+    randomString(length,
+        from: NUMERIC_START, to: NUMERIC_END, provider: provider);
 
 /// Generates a random string of [length] with only alpha characters.
-String randomAlpha(int length, {Provider provider = const DefaultProvider()}) {
+String randomAlpha(int length,
+    {AbstractRandomProvider provider = const DefaultRandomProvider()}) {
   var lowerAlphaLength = randomBetween(0, length, provider: provider);
   var upperAlphaLength = length - lowerAlphaLength;
   var lowerAlpha = randomString(lowerAlphaLength,
@@ -66,7 +73,8 @@ String randomAlpha(int length, {Provider provider = const DefaultProvider()}) {
 }
 
 /// Generates a random string of [length] with alpha-numeric characters.
-String randomAlphaNumeric(int length, {Provider provider = const DefaultProvider()}) {
+String randomAlphaNumeric(int length,
+    {AbstractRandomProvider provider = const DefaultRandomProvider()}) {
   var alphaLength = randomBetween(0, length, provider: provider);
   var numericLength = length - alphaLength;
   var alpha = randomAlpha(alphaLength, provider: provider);
@@ -76,7 +84,7 @@ String randomAlphaNumeric(int length, {Provider provider = const DefaultProvider
 
 /// Merge [a] with [b] and shuffle.
 String randomMerge(String a, String b) {
-  List<int> mergedCodeUnits = new List.from("$a$b".codeUnits);
+  List<int> mergedCodeUnits = List.from("$a$b".codeUnits);
   mergedCodeUnits.shuffle();
-  return new String.fromCharCodes(mergedCodeUnits);
+  return String.fromCharCodes(mergedCodeUnits);
 }
