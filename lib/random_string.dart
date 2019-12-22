@@ -22,6 +22,7 @@ abstract class AbstractRandomProvider {
 class DefaultRandomProvider with AbstractRandomProvider {
   const DefaultRandomProvider();
 
+  @override
   double nextDouble() => _internal.nextDouble();
 }
 
@@ -30,6 +31,7 @@ class CoreRandomProvider with AbstractRandomProvider {
 
   CoreRandomProvider.from(this.random);
 
+  @override
   double nextDouble() => random.nextDouble();
 }
 
@@ -37,7 +39,7 @@ class CoreRandomProvider with AbstractRandomProvider {
 int randomBetween(int from, int to,
     {AbstractRandomProvider provider = const DefaultRandomProvider()}) {
   if (from > to) throw Exception('$from cannot be > $to');
-  double randomDouble = provider.nextDouble();
+  var randomDouble = provider.nextDouble();
   if (randomDouble < 0) randomDouble *= -1;
   if (randomDouble > 1) randomDouble = 1 / randomDouble;
   return ((to - from) * provider.nextDouble()).toInt() + from;
@@ -84,7 +86,7 @@ String randomAlphaNumeric(int length,
 
 /// Merge [a] with [b] and shuffle.
 String randomMerge(String a, String b) {
-  List<int> mergedCodeUnits = List.from("$a$b".codeUnits);
+  var mergedCodeUnits = List.from('$a$b'.codeUnits);
   mergedCodeUnits.shuffle();
-  return String.fromCharCodes(mergedCodeUnits);
+  return String.fromCharCodes(mergedCodeUnits.cast<int>());
 }
