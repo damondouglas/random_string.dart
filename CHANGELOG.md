@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1
+- Fix warnings per [pana](https://pub.dev/packages/pana) v0.13.2
+
 ## 2.0.0
 - Renamed `Provider` to `AbstractRandomProvider`
 - Renamed `CoreProvider` to `CoreRandomProvider`
