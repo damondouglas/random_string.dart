@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0
+- Fix error with randomBetween previously [min, max) to [min, max]
+- Added `ProviderError` to throw errors when `Provider.nextDouble()` is outside [0, 1)
+- Added randomBetween(min, max) range limitation 0 <= min <= max <= 999999999999999
+
 ## 2.0.1
 - Fix warnings per [pana](https://pub.dev/packages/pana) v0.13.2
 

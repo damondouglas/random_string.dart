@@ -1,6 +1,13 @@
 # random_string
 
-Simple library for generating random ascii strings.
+Simple library for generating random ascii strings.  
+
+## Design goals and limitations
+
+While this package provides `randomBetween` for convenience, as the name implies, the design goal of this package 
+is for random generation of ascii strings, particularly for testing and not for cryptographic purposes.  
+With that stated, consider an alternative means of random number generation if your needs fall outside these goals
+and limitations. 
 
 ## Usage
 
@@ -10,7 +17,7 @@ import 'package:random_string/random_string.dart';
 import 'dart:math' show Random;
 
 main() {
-  print(randomBetween(10, 20)); // some integer between 10 and 20
+  print(randomBetween(10, 20)); // some integer between 10 and 20 where 0 <= min <= max <= 999999999999999
   print(randomNumeric(4)); // sequence of 4 random numbers i.e. 3259
   print(randomString(10)); // random sequence of 10 characters i.e. e~f93(4l-
   print(randomAlpha(5)); // random sequence of 5 alpha characters i.e. aRztC
