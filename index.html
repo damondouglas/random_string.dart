@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 0.29.2">
+  <meta name="generator" content="made with love by dartdoc 0.30.3">
   <meta name="description" content="random_string API docs, for the Dart programming language.">
   <title>random_string - Dart API docs</title>
 
+  
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="static-assets/github.css">
   <link rel="stylesheet" href="static-assets/styles.css">
   <link rel="icon" href="static-assets/favicon.png">
-  <!-- header placeholder -->
+
 </head>
 
-<body>
+<body data-base-href=""
+      data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
@@ -54,14 +56,19 @@
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
       <section class="desc markdown">
         <h1 id="random_string">random_string</h1>
-<p>Simple library for generating random ascii strings.</p>
+<p>Simple library for generating random ascii strings.  </p>
+<h2 id="design-goals-and-limitations">Design goals and limitations</h2>
+<p>While this package provides <code>randomBetween</code> for convenience, as the name implies, the design goal of this package 
+is for random generation of ascii strings, particularly for testing and not for cryptographic purposes.<br>
+With that stated, consider an alternative means of random number generation if your needs fall outside these goals
+and limitations. </p>
 <h2 id="usage">Usage</h2>
 <p>A simple usage example:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:random_string/random_string.dart';
 import 'dart:math' show Random;
 
 main() {
-  print(randomBetween(10, 20)); // some integer between 10 and 20
+  print(randomBetween(10, 20)); // some integer between 10 and 20 where 0 &lt;= min &lt;= max &lt;= 999999999999999
   print(randomNumeric(4)); // sequence of 4 random numbers i.e. 3259
   print(randomString(10)); // random sequence of 10 characters i.e. e~f93(4l-
   print(randomAlpha(5)); // random sequence of 5 alpha characters i.e. aRztC
@@ -88,8 +95,9 @@ class _Provider with AbstractRandomProvider {
               <span class="name"><a href="random_string/random_string-library.html">random_string</a></span>             
             </dt>
             <dd>
-              Simple library for generating random ascii strings.
-            </dd>          </dl>
+              Simple library for generating random ascii strings. 
+            </dd>
+          </dl>
         </section>
 
   </div> <!-- /.main-content -->
@@ -102,10 +110,9 @@ class _Provider with AbstractRandomProvider {
 <footer>
   <span class="no-break">
     random_string
-      2.0.0
+      2.1.0
   </span>
 
-  <!-- footer-text placeholder -->
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -113,7 +120,7 @@ class _Provider with AbstractRandomProvider {
 <script src="static-assets/highlight.pack.js"></script>
 <script src="static-assets/URI.js"></script>
 <script src="static-assets/script.js"></script>
-<!-- footer placeholder -->
+
 
 </body>
 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the randomAlphaNumeric function from the random_string library, for the Dart programming language.">
+  <title>randomAlphaNumeric function - random_string library - Dart API</title>
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../static-assets/github.css">
+  <link rel="stylesheet" href="../static-assets/styles.css">
+  <link rel="icon" href="../static-assets/favicon.png">
+
+</head>
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">random_string</a></li>
+    <li><a href="../random_string/random_string-library.html">random_string</a></li>
+    <li class="self-crumb">randomAlphaNumeric function</li>
+  </ol>
+  <div class="self-name">randomAlphaNumeric</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="../index.html">random_string</a></li>
+      <li><a href="../random_string/random_string-library.html">random_string</a></li>
+      <li class="self-crumb">randomAlphaNumeric function</li>
+    </ol>
+    
+    <h5>random_string library</h5>
+    <ol>
+      <li class="section-title"><a href="../random_string/random_string-library.html#classes">Classes</a></li>
+      <li><a href="../random_string/AbstractRandomProvider-class.html">AbstractRandomProvider</a></li>
+      <li><a href="../random_string/CoreRandomProvider-class.html">CoreRandomProvider</a></li>
+      <li><a href="../random_string/DefaultRandomProvider-class.html">DefaultRandomProvider</a></li>
+    
+    
+    
+      <li class="section-title"><a href="../random_string/random_string-library.html#constants">Constants</a></li>
+      <li><a href="../random_string/asciiEnd-constant.html">asciiEnd</a></li>
+      <li><a href="../random_string/asciiStart-constant.html">asciiStart</a></li>
+      <li><a href="../random_string/lowerAlphaEnd-constant.html">lowerAlphaEnd</a></li>
+      <li><a href="../random_string/lowerAlphaStart-constant.html">lowerAlphaStart</a></li>
+      <li><a href="../random_string/maxSupportedInteger-constant.html">maxSupportedInteger</a></li>
+      <li><a href="../random_string/minSupportedInteger-constant.html">minSupportedInteger</a></li>
+      <li><a href="../random_string/numericEnd-constant.html">numericEnd</a></li>
+      <li><a href="../random_string/numericStart-constant.html">numericStart</a></li>
+      <li><a href="../random_string/upperAlphaEnd-constant.html">upperAlphaEnd</a></li>
+      <li><a href="../random_string/upperAlphaStart-constant.html">upperAlphaStart</a></li>
+    
+    
+      <li class="section-title"><a href="../random_string/random_string-library.html#functions">Functions</a></li>
+      <li><a href="../random_string/randomAlpha.html">randomAlpha</a></li>
+      <li><a href="../random_string/randomAlphaNumeric.html">randomAlphaNumeric</a></li>
+      <li><a href="../random_string/randomBetween.html">randomBetween</a></li>
+      <li><a href="../random_string/randomMerge.html">randomMerge</a></li>
+      <li><a href="../random_string/randomNumeric.html">randomNumeric</a></li>
+      <li><a href="../random_string/randomString.html">randomString</a></li>
+    
+    
+    
+      <li class="section-title"><a href="../random_string/random_string-library.html#exceptions">Exceptions</a></li>
+      <li><a href="../random_string/ProviderError-class.html">ProviderError</a></li>
+    </ol>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <div><h1><span class="kind-function">randomAlphaNumeric</span> function </h1></div>
+
+    <section class="multi-line-signature">
+        <span class="returntype">String</span>
+                <span class="name ">randomAlphaNumeric</span>
+(<wbr><ol class="parameter-list"><li><span class="parameter" id="randomAlphaNumeric-param-length"><span class="type-annotation">int</span> <span class="parameter-name">length</span>, </span></li>
+<li><span class="parameter" id="randomAlphaNumeric-param-provider">{<span class="type-annotation"><a href="../random_string/AbstractRandomProvider-class.html">AbstractRandomProvider</a></span> <span class="parameter-name">provider</span>: <span class="default-value">const DefaultRandomProvider()</span>}</span></li>
+</ol>)
+    </section>
+    <section class="desc markdown">
+      <p>Generates a random string of <code>length</code> with alpha-numeric characters.</p>
+    </section>
+    
+    <section class="summary source-code" id="source">
+      <h2><span>Implementation</span></h2>
+      <pre class="language-dart"><code class="language-dart">String randomAlphaNumeric(int length,
+    {AbstractRandomProvider provider = const DefaultRandomProvider()}) {
+  var alphaLength = randomBetween(0, length, provider: provider);
+  var numericLength = length - alphaLength;
+  var alpha = randomAlpha(alphaLength, provider: provider);
+  var numeric = randomNumeric(numericLength, provider: provider);
+  return randomMerge(alpha, numeric);
+}</code></pre>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    random_string
+      2.1.0
+  </span>
+
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../static-assets/typeahead.bundle.min.js"></script>
+<script src="../static-assets/highlight.pack.js"></script>
+<script src="../static-assets/URI.js"></script>
+<script src="../static-assets/script.js"></script>
+
+
+</body>
+
+</html>
