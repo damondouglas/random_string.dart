@@ -4,21 +4,28 @@ library random_string;
 
 import 'dart:math' show Random;
 
-const ASCII_START = 33;
-const ASCII_END = 126;
-const NUMERIC_START = 48;
-const NUMERIC_END = 57;
-const LOWER_ALPHA_START = 97;
-const LOWER_ALPHA_END = 122;
-const UPPER_ALPHA_START = 65;
-const UPPER_ALPHA_END = 90;
+const maxSupportedInteger = 999999999999999;
+const minSupportedInteger = 0;
+const asciiStart = 33;
+const asciiEnd = 126;
+const numericStart = 48;
+const numericEnd = 57;
+const lowerAlphaStart = 97;
+const lowerAlphaEnd = 122;
+const upperAlphaStart = 65;
+const upperAlphaEnd = 90;
 
 final _internal = Random();
 
+/// A generator of double values.
 abstract class AbstractRandomProvider {
+  /// A non-negative random floating point value is expected
+  /// in the range from 0.0, inclusive, to 1.0, exclusive.
+  /// A [ProviderError] is thrown if the return value is < 0 or >= 1
   double nextDouble();
 }
 
+/// A generator of pseudo-random double values using the default [math.Random].
 class DefaultRandomProvider with AbstractRandomProvider {
   const DefaultRandomProvider();
 
@@ -26,6 +33,7 @@ class DefaultRandomProvider with AbstractRandomProvider {
   double nextDouble() => _internal.nextDouble();
 }
 
+/// A generator of random values using a supplied [math.Random].
 class CoreRandomProvider with AbstractRandomProvider {
   Random random;
 
@@ -35,22 +43,42 @@ class CoreRandomProvider with AbstractRandomProvider {
   double nextDouble() => random.nextDouble();
 }
 
-/// Generates a random integer where [from] <= [to].
+/// Generates a random integer where [from] <= [to] inclusive
+/// where 0 <= from <= to <= 999999999999999
 int randomBetween(int from, int to,
     {AbstractRandomProvider provider = const DefaultRandomProvider()}) {
-  if (from > to) throw Exception('$from cannot be > $to');
-  var randomDouble = provider.nextDouble();
-  if (randomDouble < 0) randomDouble *= -1;
-  if (randomDouble > 1) randomDouble = 1 / randomDouble;
-  return ((to - from) * provider.nextDouble()).toInt() + from;
+  if (from > to) {
+    throw ArgumentError('$from cannot be > $to');
+  }
+  if (from < minSupportedInteger) {
+    throw ArgumentError(
+        '|$from| is larger than the maximum supported $maxSupportedInteger');
+  }
+
+  if (to > maxSupportedInteger) {
+    throw ArgumentError(
+        '|$to| is larger than the maximum supported $maxSupportedInteger');
+  }
+
+  var d = provider.nextDouble();
+  if (d < 0 || d >= 1) {
+    throw ProviderError(d);
+  }
+  return _mapValue(d, from, to);
+}
+
+int _mapValue(double value, int min, int max) {
+  if (min == max) return min;
+  var range = (max - min).toDouble();
+  return (value * (range + 1)).floor() + min;
 }
 
 /// Generates a random string of [length] with characters
 /// between ascii [from] to [to].
 /// Defaults to characters of ascii '!' to '~'.
 String randomString(int length,
-    {int from = ASCII_START,
-    int to = ASCII_END,
+    {int from = asciiStart,
+    int to = asciiEnd,
     AbstractRandomProvider provider = const DefaultRandomProvider()}) {
   return String.fromCharCodes(List.generate(
       length, (index) => randomBetween(from, to, provider: provider)));
@@ -60,17 +88,22 @@ String randomString(int length,
 String randomNumeric(int length,
         {AbstractRandomProvider provider = const DefaultRandomProvider()}) =>
     randomString(length,
-        from: NUMERIC_START, to: NUMERIC_END, provider: provider);
+        from: numericStart, to: numericEnd, provider: provider);
 
 /// Generates a random string of [length] with only alpha characters.
 String randomAlpha(int length,
     {AbstractRandomProvider provider = const DefaultRandomProvider()}) {
+  var lowerAlphaWeight = provider.nextDouble();
+  var upperAlphaWeight = provider.nextDouble();
+  var sumWeight = lowerAlphaWeight + upperAlphaWeight;
+  lowerAlphaWeight /= sumWeight;
+  upperAlphaWeight /= sumWeight;
   var lowerAlphaLength = randomBetween(0, length, provider: provider);
   var upperAlphaLength = length - lowerAlphaLength;
   var lowerAlpha = randomString(lowerAlphaLength,
-      from: LOWER_ALPHA_START, to: LOWER_ALPHA_END, provider: provider);
+      from: lowerAlphaStart, to: lowerAlphaEnd, provider: provider);
   var upperAlpha = randomString(upperAlphaLength,
-      from: UPPER_ALPHA_START, to: UPPER_ALPHA_END, provider: provider);
+      from: upperAlphaStart, to: upperAlphaEnd, provider: provider);
   return randomMerge(lowerAlpha, upperAlpha);
 }
 
@@ -89,4 +122,15 @@ String randomMerge(String a, String b) {
   var mergedCodeUnits = List.from('$a$b'.codeUnits);
   mergedCodeUnits.shuffle();
   return String.fromCharCodes(mergedCodeUnits.cast<int>());
+}
+
+/// ProviderError thrown when a [Provider] provides a value
+/// outside the expected [0, 1) range.
+class ProviderError implements Exception {
+  final double value;
+
+  ProviderError(this.value);
+
+  @override
+  String toString() => 'nextDouble() = $value, only [0, 1) expected';
 }
