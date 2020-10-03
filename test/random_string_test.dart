@@ -21,12 +21,13 @@ class TestCase {
   int to;
   int want;
   bool wantArgumentError;
-  TestCase(
-      {this.value = 0.0,
-      this.from = 0,
-      this.to = 0,
-      this.want = 0,
-      this.wantArgumentError = false});
+  TestCase({
+    this.value = 0.0,
+    this.from = 0,
+    this.to = 0,
+    this.want = 0,
+    this.wantArgumentError = false,
+  });
 }
 
 main() {
