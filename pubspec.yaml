@@ -4,7 +4,7 @@ version: 2.1.0
 homepage: https://github.com/damondouglas/random_string.dart
 
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.10.0 <3.0.0'
 
 dev_dependencies:
   dart_statistics: ^0.0.2

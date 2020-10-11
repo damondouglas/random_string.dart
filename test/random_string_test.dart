@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:dart_statistics/dart_statistics.dart';
@@ -21,8 +20,14 @@ class TestCase {
   int from;
   int to;
   int want;
-  ArgumentError wantArgumentError;
-  TestCase({this.value = 0.0, this.from = 0, this.to = 0, this.want = 0, this.wantArgumentError = null});
+  bool wantArgumentError;
+  TestCase({
+    this.value = 0.0,
+    this.from = 0,
+    this.to = 0,
+    this.want = 0,
+    this.wantArgumentError = false,
+  });
 }
 
 main() {
@@ -30,15 +35,15 @@ main() {
     var cases = [
       TestCase(
         from: 1,
-        wantArgumentError: ArgumentError(),
+        wantArgumentError: true,
       ),
       TestCase(
         to: max + 1,
-        wantArgumentError: ArgumentError(),
+        wantArgumentError: true,
       ),
       TestCase(
         from: -1,
-        wantArgumentError: ArgumentError(),
+        wantArgumentError: true,
       ),
       TestCase(),
       TestCase(
@@ -59,27 +64,27 @@ main() {
       ),
       TestCase(
         to: mid,
-        value: mid/pow(10, precision),
+        value: mid / pow(10, precision),
         want: (mid / 2).round(),
       ),
       TestCase(
         to: max,
-        value: mid/pow(10, precision),
+        value: mid / pow(10, precision),
         want: (max / 2).round(),
       ),
       TestCase(
         from: mid,
         to: max,
-        value: mid/pow(10, precision),
+        value: mid / pow(10, precision),
         want: mid + ((max - mid) / 2).round(),
       ),
       TestCase(
         to: max,
-        value: max/pow(10, precision),
+        value: max / pow(10, precision),
         want: max,
       ),
     ];
-    test('min <= _mapValue() <= max', (){
+    test('min <= _mapValue() <= max', () {
       cases.forEach((TestCase testCase) {
         var value = testCase.value;
         var from = testCase.from;
@@ -88,8 +93,9 @@ main() {
 
         var p = TestProvider(value);
 
-        if (testCase.wantArgumentError != null) {
-          expect(() => randomBetween(from, to, provider: p), throwsArgumentError);
+        if (testCase.wantArgumentError) {
+          expect(
+              () => randomBetween(from, to, provider: p), throwsArgumentError);
           return;
         }
 
@@ -127,7 +133,8 @@ main() {
   group("chiSquaredTest", () {
     test("all values min <= value <= max are equally likely", () {
       final expected = List.generate(10000, (index) => (index + 1).toDouble());
-      final observed = List.generate(10000, (_) => randomBetween(0, max).toDouble());
+      final observed =
+          List.generate(10000, (_) => randomBetween(0, max).toDouble());
       final reduction = 999;
       var probability = chiSquaredTest(
         observed,
