@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:dart_statistics/dart_statistics.dart';
 import 'package:test/test.dart';
 import 'package:random_string/random_string.dart';
 
@@ -127,21 +126,6 @@ main() {
     test("yields an alphanumeric string", () {
       expect(RegExp(r'^[a-zA-Z0-9]{100}$').hasMatch(randomAlphaNumeric(100)),
           true);
-    });
-  });
-
-  group("chiSquaredTest", () {
-    test("all values min <= value <= max are equally likely", () {
-      final expected = List.generate(10000, (index) => (index + 1).toDouble());
-      final observed =
-          List.generate(10000, (_) => randomBetween(0, max).toDouble());
-      final reduction = 999;
-      var probability = chiSquaredTest(
-        observed,
-        expected,
-        degreesOfFreedomReduction: reduction,
-      ).probability;
-      expect(probability < 0.05, isTrue, reason: "probability: $probability");
     });
   });
 }
