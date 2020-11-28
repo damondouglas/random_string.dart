@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.0
+## 2.2.0-nullsafety
 
 - Upgrade SDK environment to minimum >=2.12.0-0
 - Remove unnecessary or upgrade non-null-safe packages
