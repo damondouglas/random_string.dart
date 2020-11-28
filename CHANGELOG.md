@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+- Upgrade SDK environment to minimum >=2.12.0-0
+- Remove unnecessary or upgrade non-null-safe packages
+- Remove test dependent on dart_statistics
+
 ## 2.1.0
 - Fix error with randomBetween previously [min, max) to [min, max]
 - Added `ProviderError` to throw errors when `Provider.nextDouble()` is outside [0, 1)
