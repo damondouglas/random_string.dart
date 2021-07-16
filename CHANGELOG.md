@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1
+
+- Bump test dependency version
+
 ## 2.2.0-nullsafety
 
 - Upgrade SDK environment to minimum >=2.12.0-0
